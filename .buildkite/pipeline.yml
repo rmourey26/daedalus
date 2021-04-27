@@ -6,7 +6,7 @@ steps:
     env:
       NIX_SSL_CERT_FILE: /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
     agents:
-      queue: daedalus
+      queue: catalina-test
       system: x86_64-darwin
   - label: 'daedalus-x86_64-linux-nix'
     command: 'scripts/build-installer-nix.sh $BUILDKITE_BUILD_NUMBER'
