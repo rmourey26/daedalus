@@ -2,7 +2,7 @@
 import React from 'react';
 import { text, boolean, number } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 // Screens
 import ChangeSpendingPasswordDialog from '../../../../source/renderer/app/components/wallet/settings/ChangeSpendingPasswordDialog';
@@ -55,7 +55,7 @@ export const defaultProps = {
   onStopEditing: () => {},
   openDialogAction: () => {},
   walletName: text('Wallet Name', 'Wallet Name'),
-  spendingPasswordUpdateDate: moment().subtract(1, 'month').toDate(),
+  spendingPasswordUpdateDate: dayjs().subtract(1, 'month').toDate(),
   changeSpendingPasswordDialog: (
     <ChangeSpendingPasswordDialog
       walletName={text('Wallet Name', 'Wallet Name')}

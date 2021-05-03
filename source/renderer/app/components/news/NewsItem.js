@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames';
 import ReactMarkdown from 'react-markdown';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { get } from 'lodash';
 import AnimateHeight from 'react-animate-height';
 import { ButtonSkin } from 'react-polymorph/lib/skins/simple/ButtonSkin';
@@ -126,7 +126,7 @@ export default class NewsItem extends Component<Props, State> {
       >
         {title}
         <div className={styles.newsItemDate}>
-          {moment(newsItem.date).format(currentDateFormat)}
+          {dayjs(newsItem.date).format(currentDateFormat)}
         </div>
         <div className={styles.newsItemContentWrapper}>
           <AnimateHeight

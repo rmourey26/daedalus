@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import type { Node } from 'react';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ja';
 import LocalizableError from '../../../i18n/LocalizableError';
 import {
   IS_WALLET_PUBLIC_KEY_SHARING_ENABLED,
@@ -25,9 +27,11 @@ import ChangeSpendingPasswordDialog from './ChangeSpendingPasswordDialog';
 import globalMessages from '../../../i18n/global-messages';
 import styles from './WalletSettings.scss';
 import WalletRecoveryPhraseVerificationWidget from './WalletRecoveryPhraseVerificationWidget';
-import { momentLocales } from '../../../../../common/types/locales.types';
+import { dayjsLocales } from '../../../../../common/types/locales.types';
 
 import type { Locale } from '../../../../../common/types/locales.types';
+
+dayjs.extend(relativeTime);
 
 export const messages = defineMessages({
   assuranceLevelLabel: {
@@ -375,8 +379,8 @@ export default class WalletSettings extends Component<Props, State> {
     } = this.props;
     const { isFormBlocked } = this.state;
 
-    // Set Japanese locale to moment. Default is en-US
-    moment.locale(momentLocales[locale]);
+    // Set Japanese locale to dayjs. Default is en
+    dayjs.locale(dayjsLocales[locale]);
 
     if (isLegacy && isIncentivizedTestnet) {
       return (
@@ -389,7 +393,7 @@ export default class WalletSettings extends Component<Props, State> {
 
     const passwordMessage = isSpendingPasswordSet
       ? intl.formatMessage(messages.passwordLastUpdated, {
-          lastUpdated: moment(spendingPasswordUpdateDate)
+          lastUpdated: dayjs(spendingPasswordUpdateDate)
             .locale(this.context.intl.locale)
             .fromNow(),
         })

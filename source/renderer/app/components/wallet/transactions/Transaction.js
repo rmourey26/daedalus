@@ -1,7 +1,7 @@
 // @flow
 import React, { Component, Fragment } from 'react';
 import { defineMessages, intlShape } from 'react-intl';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { includes, get } from 'lodash';
 import SVGInline from 'react-svg-inline';
 import classNames from 'classnames';
@@ -331,8 +331,8 @@ export default class Transaction extends Component<Props, State> {
 
   getTimePending = (txnDate: Date): number => {
     // right now (milliseconds) minus txn created_at date (milliseconds)
-    const NOW = moment().valueOf();
-    const TXN_CREATED_AT = moment(txnDate).valueOf();
+    const NOW = dayjs().valueOf();
+    const TXN_CREATED_AT = dayjs(txnDate).valueOf();
     return NOW - TXN_CREATED_AT;
   };
 
@@ -571,7 +571,7 @@ export default class Transaction extends Component<Props, State> {
               <div className={styles.details}>
                 <div className={styles.type}>
                   {intl.formatMessage(messages.type, { typeOfTransaction })},{' '}
-                  {moment(data.date).format(currentTimeFormat)}
+                  {dayjs(data.date).format(currentTimeFormat)}
                 </div>
                 {this.renderTxnStateTag()}
               </div>

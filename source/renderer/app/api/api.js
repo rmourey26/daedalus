@@ -2,7 +2,9 @@
 import { split, get, map, last, size, concat, flatten } from 'lodash';
 import { action } from 'mobx';
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import duration from 'dayjs/plugin/duration';
 // domains
 import Wallet, {
   WalletDelegationStatuses,
@@ -239,6 +241,9 @@ import Asset from '../domains/Asset';
 import { getAssets } from './assets/requests/getAssets';
 import { getAccountPublicKey } from './wallets/requests/getAccountPublicKey';
 
+dayjs.extend(utc);
+dayjs.extend(duration);
+
 const { isIncentivizedTestnet } = global;
 
 export default class AdaApi {
@@ -448,9 +453,9 @@ export default class AdaApi {
       }
     );
     if (fromDate)
-      params.start = `${moment.utc(fromDate).format('YYYY-MM-DDTHH:mm:ss')}Z`;
+      params.start = `${dayjs.utc(fromDate).format('YYYY-MM-DDTHH:mm:ss')}Z`;
     if (toDate)
-      params.end = `${moment.utc(toDate).format('YYYY-MM-DDTHH:mm:ss')}Z`;
+      params.end = `${dayjs.utc(toDate).format('YYYY-MM-DDTHH:mm:ss')}Z`;
 
     try {
       let response;
@@ -482,13 +487,13 @@ export default class AdaApi {
     //   cachedTransactions: request.cachedTransactions.length,
     // });
     //  logger.debug('AdaApi::searchHistory called', { parameters: requestStats });
-    // const requestTimestamp = moment();
+    // const requestTimestamp = dayjs();
     // const params = {
     //   wallet_id: walletId,
     //   page: skip === 0 ? 1 : skip + 1,
     //   per_page: perPage,
     //   sort_by: 'DES[created_at]',
-    //   created_at: `LTE[${moment.utc().format('YYYY-MM-DDTHH:mm:ss')}]`,
+    //   created_at: `LTE[${dayjs.utc().format('YYYY-MM-DDTHH:mm:ss')}]`,
     //   // ^^ By setting created_at filter to current time we make sure
     //   // all subsequent multi-pages requests load the same set of transactions
     // };
@@ -516,7 +521,7 @@ export default class AdaApi {
     //   page: skip === 0 ? 1 : skip + 1,
     //   per_page: perPage,
     //   sort_by: 'DES[created_at]',
-    //   created_at: `LTE[${moment.utc().format('YYYY-MM-DDTHH:mm:ss')}]`,
+    //   created_at: `LTE[${dayjs.utc().format('YYYY-MM-DDTHH:mm:ss')}]`,
     //   // ^^ By setting created_at filter to current time we make sure
     //   // all subsequent multi-pages requests load the same set of transactions
     // };
@@ -524,7 +529,7 @@ export default class AdaApi {
     // const shouldLoadOnlyFresh =
     //   !isFirstLoad && !isRestoreActive && !isRestoreCompleted;
     // if (shouldLoadOnlyFresh) {
-    //   const tenMinutesAgo = moment
+    //   const tenMinutesAgo = dayjs
     //     .utc(Date.now() - TX_AGE_POLLING_THRESHOLD)
     //     .format('YYYY-MM-DDTHH:mm:ss');
     //   // Since we load all transactions in a first load, later on we only care about fresh ones
@@ -570,7 +575,7 @@ export default class AdaApi {
     //
     //     if (isRestoreActive || isRestoreCompleted) {
     //       const latestLoadedTransactionDate = transactions[0].date;
-    //       const latestLoadedTransactionDateString = moment
+    //       const latestLoadedTransactionDateString = dayjs
     //         .utc(latestLoadedTransactionDate)
     //         .format('YYYY-MM-DDTHH:mm:ss');
     //       // During restoration we need to fetch only transactions older than the latest loaded one
@@ -612,9 +617,7 @@ export default class AdaApi {
     //     daedalusCached: cachedTransactions.length,
     //     daedalusLoaded: total - cachedTransactions.length,
     //     daedalusTotal: total,
-    //     requestDurationInMs: moment
-    //       .duration(moment().diff(requestTimestamp))
-    //       .as('milliseconds'),
+    //     requestDurationInMs: dayjs.duration(dayjs().diff(requestTimestamp)).as('milliseconds'),
     //   };
     //   logger.debug(
     //     `AdaApi::searchHistory success: ${total} transactions loaded`,
@@ -2327,7 +2330,7 @@ export default class AdaApi {
         minimum_utxo_value: minimumUtxoValue,
         eras,
       } = networkParameters;
-      const blockchainStartTime = moment(blockchain_start_time).valueOf();
+      const blockchainStartTime = dayjs(blockchain_start_time).valueOf();
 
       return {
         genesisBlockHash,

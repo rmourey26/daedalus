@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import {
@@ -43,23 +43,23 @@ storiesOf('Wallets|Settings', module)
         groupId
       );
       const veriticationTimeOptions = {
-        '1 month ago': moment().subtract(30, 'days'),
-        '2 months': moment().subtract(30 * 2, 'days'),
-        '5 months ago': moment().subtract(30 * 5, 'days'),
-        '6+ months ago': moment().subtract(times.warning + 1, 'days'),
-        '1 year ago': moment().subtract(times.notification + 1, 'days'),
+        '1 month ago': dayjs().subtract(30, 'days'),
+        '2 months': dayjs().subtract(30 * 2, 'days'),
+        '5 months ago': dayjs().subtract(30 * 5, 'days'),
+        '6+ months ago': dayjs().subtract(times.warning + 1, 'days'),
+        '1 year ago': dayjs().subtract(times.notification + 1, 'days'),
       };
       const creationTimeOptions = {
-        '1 month ago': moment().subtract(30, 'days'),
-        '2 months': moment().subtract(60, 'days'),
-        '3-5 months': moment().subtract(times.okFewMonths + 1, 'days'),
-        '5 months ago': moment().subtract(times.okFewWeeks + 1, 'days'),
-        '1 week left for 6 months': moment().subtract(
+        '1 month ago': dayjs().subtract(30, 'days'),
+        '2 months': dayjs().subtract(60, 'days'),
+        '3-5 months': dayjs().subtract(times.okFewMonths + 1, 'days'),
+        '5 months ago': dayjs().subtract(times.okFewWeeks + 1, 'days'),
+        '1 week left for 6 months': dayjs().subtract(
           times.okFewDays + 1,
           'days'
         ),
-        '6+ months ago': moment().subtract(times.warning + 1, 'days'),
-        '1 year ago': moment().subtract(times.notification + 1, 'days'),
+        '6+ months ago': dayjs().subtract(times.warning + 1, 'days'),
+        '1 year ago': dayjs().subtract(times.notification + 1, 'days'),
       };
 
       const wasAlreadyVerified = boolean('Already verified?', false, groupId);

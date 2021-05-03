@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { linkTo } from '@storybook/addon-links';
 import { number, boolean } from '@storybook/addon-knobs';
 
@@ -100,6 +100,6 @@ export const StakingUndelegateConfirmationResultStory = ({
     slotLength={null}
     onClose={() => null}
     currentLocale={locale}
-    futureEpochStartTime={moment().add(35, 'hour').toString()}
+    futureEpochStartTime={dayjs().add(35, 'hour').toString()}
   />
 );

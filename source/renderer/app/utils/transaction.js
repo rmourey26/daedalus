@@ -1,6 +1,6 @@
 // @flow
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React from 'react';
 import type { CoinSelectionsResponse } from '../api/transactions/types';
 import {
@@ -29,9 +29,9 @@ export const generateFilterOptions = (
   const amounts = transactions.map(({ amount }) => amount.absoluteValue());
   const dateRange = DateRangeTypes.CUSTOM;
   const fromDate =
-    dates.length > 0 ? moment(Math.min(...dates)).format('YYYY-MM-DD') : '';
+    dates.length > 0 ? dayjs(Math.min(...dates)).format('YYYY-MM-DD') : '';
   const toDate =
-    dates.length > 0 ? moment(Math.max(...dates)).format('YYYY-MM-DD') : '';
+    dates.length > 0 ? dayjs(Math.max(...dates)).format('YYYY-MM-DD') : '';
   const fromAmount =
     amounts.length > 0 ? BigNumber.min(...amounts).toString() : '';
   const toAmount =
@@ -61,10 +61,10 @@ export const isTransactionDateInFilterRange = (
   }
 
   const compareFrom = fromDate
-    ? date.getTime() >= moment(fromDate).startOf('day').valueOf()
+    ? date.getTime() >= dayjs(fromDate).startOf('day').valueOf()
     : true;
   const compareTo = toDate
-    ? date.getTime() <= moment(toDate).endOf('day').valueOf()
+    ? date.getTime() <= dayjs(toDate).endOf('day').valueOf()
     : true;
 
   return compareFrom && compareTo;
@@ -194,18 +194,18 @@ export const calculateDateRange = (
     toDate = toValue;
   } else {
     if (dateRange === DateRangeTypes.LAST_7_DAYS) {
-      fromDate = moment().subtract(6, 'days');
+      fromDate = dayjs().subtract(6, 'days');
     } else if (dateRange === DateRangeTypes.LAST_30_DAYS) {
-      fromDate = moment().subtract(29, 'days');
+      fromDate = dayjs().subtract(29, 'days');
     } else if (dateRange === DateRangeTypes.LAST_90_DAYS) {
-      fromDate = moment().subtract(89, 'days');
+      fromDate = dayjs().subtract(89, 'days');
     } else if (dateRange === DateRangeTypes.THIS_YEAR) {
-      fromDate = moment().startOf('year');
+      fromDate = dayjs().startOf('year');
     } else {
-      fromDate = moment();
+      fromDate = dayjs();
     }
     fromDate = fromDate.format('YYYY-MM-DD');
-    toDate = moment().format('YYYY-MM-DD');
+    toDate = dayjs().format('YYYY-MM-DD');
   }
 
   return { fromDate, toDate };
@@ -217,12 +217,12 @@ export const formatDateValue = (
   dateFormat: string
 ) => {
   if (!date) {
-    const formattedDefaultDate = moment(defaultDate).format(dateFormat);
+    const formattedDefaultDate = dayjs(defaultDate).format(dateFormat);
 
     return <span className="undefined">{formattedDefaultDate}</span>;
   }
 
-  return moment(date).format(dateFormat);
+  return dayjs(date).format(dateFormat);
 };
 
 export const formatAmountValue = (
@@ -261,7 +261,7 @@ export const validateFilterForm = (values: {
   if (
     fromDate &&
     toDate &&
-    moment(fromDate).valueOf() > moment(toDate).valueOf()
+    dayjs(fromDate).valueOf() > dayjs(toDate).valueOf()
   ) {
     invalidFields.toDate = true;
   }

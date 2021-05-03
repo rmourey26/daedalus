@@ -4,7 +4,7 @@ import type { Element } from 'react';
 import Datetime from 'react-datetime';
 import { intlShape } from 'react-intl';
 import classNames from 'classnames';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import globalMessages from '../../../i18n/global-messages';
 import TinyInput from './TinyInput';
 import styles from './TinyDatePicker.scss';
@@ -110,7 +110,7 @@ export default class TinyDatePicker extends Component<Props> {
         <Datetime
           dateFormat={dateFormat}
           timeFormat={false}
-          value={value ? moment(value).toDate() : null}
+          value={value ? dayjs(value).toDate() : null}
           onViewModeChange={this.ensureResetButtonExistence}
           isValidDate={isValidDate}
           onChange={(selectedDate) => {
@@ -134,7 +134,7 @@ export default class TinyDatePicker extends Component<Props> {
                   this.ensureResetButtonExistence();
                 }}
                 onInput={(evt) => {
-                  const inputDate = moment(evt.target.value, dateFormat);
+                  const inputDate = dayjs(evt.target.value, dateFormat);
                   if (
                     !inputDate.isValid() ||
                     (isValidDate && !isValidDate(inputDate))
@@ -145,7 +145,7 @@ export default class TinyDatePicker extends Component<Props> {
                     props.onInput(evt);
                   }
                 }}
-                value={value ? moment(value).format(dateFormat) : ''}
+                value={value ? dayjs(value).format(dateFormat) : ''}
                 disablePaste={disablePaste}
                 innerLabelPrefix={innerLabelPrefix}
                 innerValue={innerValue}

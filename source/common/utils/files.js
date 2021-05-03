@@ -1,6 +1,9 @@
 // @flow
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import sanitizeFilename from 'sanitize-filename';
+
+dayjs.extend(utc);
 
 export const defaultProps = {
   prefix: 'logs',
@@ -12,7 +15,7 @@ export const defaultProps = {
 type Props = {
   prefix?: string,
   extension?: string,
-  date?: moment,
+  date?: dayjs.Dayjs,
   isUTC?: boolean,
   sanitize?: boolean,
 };
@@ -22,7 +25,7 @@ export const generateFileNameWithTimestamp = (props?: Props = {}) => {
     ...defaultProps,
     ...props,
   };
-  let date = props.date || moment();
+  let date = props.date || dayjs();
   let z = '';
   if (isUTC === true) {
     if (!props || !Object.prototype.hasOwnProperty.call(props, 'date'))

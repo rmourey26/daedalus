@@ -2,12 +2,15 @@
 import React, { Component, Fragment } from 'react';
 import { observer } from 'mobx-react';
 import { intlShape } from 'react-intl';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import SVGInline from 'react-svg-inline';
 import styles from './CountdownWidget.scss';
 import delimeterIcon from '../../assets/images/delimeter.inline.svg';
 import spinnerIcon from '../../assets/images/spinner.inline.svg';
 import globalMessages from '../../i18n/global-messages';
+
+dayjs.extend(duration);
 
 const TIME_LEFT_INTERVAL = 1 * 1000; // 1 second | unit: milliseconds;
 const COLUMNS = {
@@ -129,7 +132,7 @@ export default class CountdownWidget extends Component<Props, State> {
     const { intl } = this.context;
     const { timeLeft } = this.state;
     const { format } = this.props;
-    const duration = moment.duration(timeLeft, 'milliseconds');
+    const timeDuration = dayjs.duration(timeLeft, 'milliseconds');
 
     const yearsLabel = intl.formatMessage(globalMessages.years);
     const monthsLabel = intl.formatMessage(globalMessages.months);
@@ -150,14 +153,14 @@ export default class CountdownWidget extends Component<Props, State> {
           secondsLabel,
         ];
 
-    const years = duration.years();
-    const months = duration.months();
-    const days = duration.days();
-    const hours = duration.hours();
-    const minutes = duration.minutes();
-    const seconds = duration.seconds();
+    const years = timeDuration.years();
+    const months = timeDuration.months();
+    const days = timeDuration.days();
+    const hours = timeDuration.hours();
+    const minutes = timeDuration.minutes();
+    const seconds = timeDuration.seconds();
     const values = format
-      ? format.split('-').map((item) => duration[COLUMNS[item]]())
+      ? format.split('-').map((item) => timeDuration[COLUMNS[item]]())
       : [years, months, days, hours, minutes, seconds];
     const keys = format
       ? format.split('-').map((item) => COLUMNS[item])

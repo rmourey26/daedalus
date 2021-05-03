@@ -1,15 +1,12 @@
 // @flow
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { WalletTransaction } from '../../../domains/WalletTransaction';
 
 export class TransactionsGroup {
-  date: moment.Moment;
+  date: dayjs.Dayjs;
   transactions: WalletTransaction[];
 
-  constructor(props: {
-    date: moment.Moment,
-    transactions: WalletTransaction[],
-  }) {
+  constructor(props: { date: dayjs.Dayjs, transactions: WalletTransaction[] }) {
     Object.assign(this, props);
   }
 }

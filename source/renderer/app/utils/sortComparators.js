@@ -1,6 +1,6 @@
 // @flow
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 export const bigNumberComparator = (
   numberA: BigNumber,
@@ -39,11 +39,11 @@ export const dateComparator = (
   dateB: string,
   isAscending: boolean = true
 ): number => {
-  if (moment(dateA).unix() < moment(dateB).unix()) {
+  if (dayjs(dateA).unix() < dayjs(dateB).unix()) {
     return isAscending ? -1 : 1;
   }
 
-  if (moment(dateA).unix() > moment(dateB).unix()) {
+  if (dayjs(dateA).unix() > dayjs(dateB).unix()) {
     return isAscending ? 1 : -1;
   }
 

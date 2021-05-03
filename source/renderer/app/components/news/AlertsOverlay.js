@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import localeData from 'dayjs/plugin/localeData';
 import { observer } from 'mobx-react';
 import { get } from 'lodash';
 import ReactMarkdown from 'react-markdown';
@@ -10,6 +11,8 @@ import DialogCloseButton from '../widgets/DialogCloseButton';
 import closeCrossThin from '../../assets/images/close-cross-thin.inline.svg';
 import ButtonLink from '../widgets/ButtonLink';
 import styles from './AlertsOverlay.scss';
+
+dayjs.extend(localeData);
 
 type State = {
   showOverlay: boolean,
@@ -38,7 +41,7 @@ export default class AlertsOverlay extends Component<Props, State> {
   localizedDateFormat: 'MM/DD/YYYY';
 
   componentDidMount() {
-    this.localizedDateFormat = moment.localeData().longDateFormat('L');
+    this.localizedDateFormat = dayjs.localeData().longDateFormat('L');
   }
 
   contentClickHandler(event: SyntheticMouseEvent<HTMLElement>) {
@@ -112,7 +115,7 @@ export default class AlertsOverlay extends Component<Props, State> {
           {this.renderCounter(alerts)}
           <h1 className={styles.title}>{title}</h1>
           <span className={styles.date}>
-            {moment(date).format(currentDateFormat)}
+            {dayjs(date).format(currentDateFormat)}
           </span>
           <div
             className={styles.content}

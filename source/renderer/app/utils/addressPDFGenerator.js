@@ -1,5 +1,5 @@
 // @flow
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { defineMessages } from 'react-intl';
 import { generateAddressPDFChannel } from '../ipc/generateAddressPDFChannel';
 import type { Network } from '../../../common/types/environment.types';
@@ -56,8 +56,8 @@ export const addressPDFGenerator = async ({
   isMainnet,
   intl,
 }: Params) => {
-  const date = moment().format(currentDateFormat);
-  const time = moment().format(currentTimeFormat);
+  const date = dayjs().format(currentDateFormat);
+  const time = dayjs().format(currentTimeFormat);
   await generateAddressPDFChannel.send({
     address,
     filePath,

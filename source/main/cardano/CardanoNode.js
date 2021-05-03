@@ -5,7 +5,8 @@ import type { ChildProcess } from 'child_process';
 import type { WriteStream } from 'fs';
 import type { Launcher } from 'cardano-launcher';
 import { get, toInteger } from 'lodash';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import rfs from 'rotating-file-stream';
 import { environment } from '../environment';
 import {
@@ -33,6 +34,8 @@ import { CardanoSelfnodeLauncher } from './CardanoSelfnodeLauncher';
 import { launcherConfig } from '../config';
 import type { NodeConfig } from '../config';
 import type { Logger } from '../../common/types/logging.types';
+
+dayjs.extend(utc);
 
 /* eslint-disable consistent-return */
 
@@ -317,7 +320,7 @@ export class CardanoNode {
         (time) => {
           // The module works by writing to the one file name before it is rotated out.
           if (!time) return 'node.log';
-          const timestamp = moment.utc().format('YYYYMMDDHHmmss');
+          const timestamp = dayjs.utc().format('YYYYMMDDHHmmss');
           return `node.log-${timestamp}`;
         },
         {
@@ -332,7 +335,7 @@ export class CardanoNode {
         (time) => {
           // The module works by writing to the one file name before it is rotated out.
           if (!time) return 'cardano-wallet.log';
-          const timestamp = moment.utc().format('YYYYMMDDHHmmss');
+          const timestamp = dayjs.utc().format('YYYYMMDDHHmmss');
           return `cardano-wallet.log-${timestamp}`;
         },
         {

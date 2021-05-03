@@ -1,14 +1,18 @@
 // @flow
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ja';
 import {
   DECIMAL_PLACES_IN_ADA,
   LOVELACES_PER_ADA,
 } from '../config/numbersConfig';
-import { momentLocales, LOCALES } from '../../../common/types/locales.types';
+import { dayjsLocales, LOCALES } from '../../../common/types/locales.types';
 import type { DownloadData } from '../../../common/types/downloadManager.types';
 import type { Locale } from '../../../common/types/locales.types';
 import type { AssetMetadata } from '../api/assets/types';
+
+dayjs.extend(relativeTime);
 
 export const formattedWalletAmount = (
   amount: BigNumber,
@@ -163,8 +167,8 @@ export const formattedDownloadData = (
       remainingSize,
     } = downloadData;
     const secondsLeft = remainingSize / speed;
-    moment.locale(momentLocales[userLocale]);
-    timeLeft = moment().add(secondsLeft, 'seconds').fromNow(true);
+    dayjs.locale(dayjsLocales[userLocale]);
+    timeLeft = dayjs().add(secondsLeft, 'seconds').fromNow(true);
     downloaded = formattedBytesToSize(downloadSize);
     total = formattedBytesToSize(serverFileSize);
     progress = parseInt(rawProgress, 10);
@@ -246,9 +250,9 @@ export const formattedDateTime = (
     currentTimeFormat: string,
   }
 ) => {
-  moment.locale(momentLocales[currentLocale]);
+  dayjs.locale(dayjsLocales[currentLocale]);
 
-  const dateTimeMoment = moment(dateTime);
+  const dateTimeMoment = dayjs(dateTime);
   const dateFormatted = dateTimeMoment.format(currentDateFormat);
   const timeFormatted = dateTimeMoment.format(currentTimeFormat);
 

@@ -4,7 +4,9 @@ import { observer } from 'mobx-react';
 import { intlShape } from 'react-intl';
 import { get, map } from 'lodash';
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ja';
 import classNames from 'classnames';
 import {
   formattedWalletAmount,
@@ -14,6 +16,8 @@ import { PoolPopOver } from '../widgets/PoolPopOver';
 import styles from './StakePoolsTable.scss';
 import { getColorFromRange, getSaturationColor } from '../../../utils/colors';
 import StakePool from '../../../domains/StakePool';
+
+dayjs.extend(relativeTime);
 
 type TableBodyProps = {
   sortedStakePoolList: StakePool,
@@ -58,7 +62,7 @@ export class StakePoolsTableBody extends Component<TableBodyProps> {
       );
       const potentialRewards = formattedWalletAmount(memberRewards);
       const retirement =
-        retiring && moment(retiring).locale(intl.locale).fromNow(true);
+        retiring && dayjs(retiring).locale(intl.locale).fromNow(true);
       const pledgeValue = formattedWalletAmount(pledge, false, false);
       const costValue = formattedWalletAmount(cost, false, false);
       const progressBarContentClassnames = classNames([

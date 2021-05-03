@@ -14,9 +14,9 @@ export const humanizedDurationLanguages = {
   'ja-JP': 'ja',
 };
 
-export const momentLocales: {
+export const dayjsLocales: {
   [key: Locale]: string,
 } = {
-  'en-US': 'en-us',
+  'en-US': 'en',
   'ja-JP': 'ja',
 };

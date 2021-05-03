@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { Button } from 'react-polymorph/lib/components/Button';
 import { ButtonSkin } from 'react-polymorph/lib/skins/simple/ButtonSkin';
 import { defineMessages, intlShape } from 'react-intl';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import styles from './WalletTransactionsList.scss';
 import Transaction from './Transaction';
 import { WalletTransaction } from '../../../domains/WalletTransaction';
@@ -122,7 +122,7 @@ export default class WalletTransactionsList extends Component<Props, State> {
   ): Array<TransactionsGroup> {
     const groups: Array<TransactionsGroup> = [];
     for (const transaction of transactions) {
-      const date = moment(transaction.date);
+      const date = dayjs(transaction.date);
       let group = groups.find(
         (g) => g.date.format(DATE_FORMAT) === date.format(DATE_FORMAT)
       );
@@ -154,13 +154,13 @@ export default class WalletTransactionsList extends Component<Props, State> {
     const { intl } = this.context;
     const { currentDateFormat } = this.props;
     // TODAY
-    const today = moment().format(DATE_FORMAT);
+    const today = dayjs().format(DATE_FORMAT);
     if (date === today) return intl.formatMessage(messages.today);
     // YESTERDAY
-    const yesterday = moment().subtract(1, 'days').format(DATE_FORMAT);
+    const yesterday = dayjs().subtract(1, 'days').format(DATE_FORMAT);
     if (date === yesterday) return intl.formatMessage(messages.yesterday);
     // PAST DATE
-    return moment(date).format(currentDateFormat);
+    return dayjs(date).format(currentDateFormat);
   }
 
   isTxExpanded = (tx: WalletTransaction) =>

@@ -5,7 +5,7 @@ import { Provider, observer } from 'mobx-react';
 import faker from 'faker';
 import { observable, computed, runInAction } from 'mobx';
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import actions from '../../../source/renderer/app/actions';
 import { WalletSyncStateStatuses } from '../../../source/renderer/app/domains/Wallet.js';
 
@@ -20,7 +20,7 @@ export const WALLETS = [
     amount: new BigNumber(0),
     reward: new BigNumber(0),
     hasPassword: true,
-    passwordUpdateDate: moment().subtract(1, 'month').toDate(),
+    passwordUpdateDate: dayjs().subtract(1, 'month').toDate(),
     syncState: { status: WalletSyncStateStatuses.READY },
     isNotResponding: false,
     isRestoring: false,
@@ -48,12 +48,12 @@ export const WALLETS = [
     amount: new BigNumber(55.555),
     reward: new BigNumber(0),
     hasPassword: true,
-    passwordUpdateDate: moment().subtract(1, 'month').toDate(),
+    passwordUpdateDate: dayjs().subtract(1, 'month').toDate(),
     syncState: { status: WalletSyncStateStatuses.READY },
     isNotResponding: false,
     isRestoring: false,
     isLegacy: true,
-    recoveryPhraseVerificationDate: moment().subtract(200, 'days').toDate(),
+    recoveryPhraseVerificationDate: dayjs().subtract(200, 'days').toDate(),
     delegatedStakePoolId: 'kfhdsdkhfskdjfhskdhf',
   },
   {
@@ -62,12 +62,12 @@ export const WALLETS = [
     amount: new BigNumber(0),
     reward: new BigNumber(0),
     hasPassword: true,
-    passwordUpdateDate: moment().subtract(1, 'month').toDate(),
+    passwordUpdateDate: dayjs().subtract(1, 'month').toDate(),
     syncState: { status: WalletSyncStateStatuses.READY },
     isNotResponding: false,
     isRestoring: false,
     isLegacy: true,
-    recoveryPhraseVerificationDate: moment().subtract(200, 'days').toDate(),
+    recoveryPhraseVerificationDate: dayjs().subtract(200, 'days').toDate(),
   },
   {
     id: '4',
@@ -75,7 +75,7 @@ export const WALLETS = [
     amount: new BigNumber(12.345),
     reward: new BigNumber(0),
     hasPassword: true,
-    passwordUpdateDate: moment().subtract(1, 'month').toDate(),
+    passwordUpdateDate: dayjs().subtract(1, 'month').toDate(),
     syncState: {
       progress: {
         quantity: 50,
@@ -86,7 +86,7 @@ export const WALLETS = [
     isNotResponding: false,
     isRestoring: true,
     isLegacy: false,
-    recoveryPhraseVerificationDate: moment().subtract(400, 'days').toDate(),
+    recoveryPhraseVerificationDate: dayjs().subtract(400, 'days').toDate(),
   },
   {
     id: '5',
@@ -94,7 +94,7 @@ export const WALLETS = [
     amount: new BigNumber(66.998),
     reward: new BigNumber(0),
     hasPassword: true,
-    passwordUpdateDate: moment().subtract(1, 'month').toDate(),
+    passwordUpdateDate: dayjs().subtract(1, 'month').toDate(),
     syncState: { status: WalletSyncStateStatuses.NOT_RESPONDING },
     isNotResponding: true,
     isRestoring: false,

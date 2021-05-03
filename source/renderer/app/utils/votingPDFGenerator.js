@@ -1,5 +1,5 @@
 // @flow
-import moment from 'moment';
+import dayjs from 'dayjs';
 import path from 'path';
 import { defineMessages } from 'react-intl';
 import { generateVotingPDFChannel } from '../ipc/generateVotingPDFChannel';
@@ -63,7 +63,7 @@ export const votingPDFGenerator = async ({
 }: Params) => {
   // Consolidate data
   const title = intl.formatMessage(messages.title, { fundNumber });
-  const creationDate = moment().format(
+  const creationDate = dayjs().format(
     `${currentDateFormat} ${currentTimeFormat}`
   );
   const walletNameLabel = intl.formatMessage(messages.walletNameLabel);

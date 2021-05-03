@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { BigNumber } from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { number, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { find } from 'lodash';
@@ -196,7 +196,7 @@ export class StakingDelegationSteps extends Component<Props, State> {
         delegatedStakePool={STAKE_POOLS[0]}
         slotLength={null}
         currentLocale={this.props.locale}
-        futureEpochStartTime={moment().add(35, 'hour').toString()}
+        futureEpochStartTime={dayjs().add(35, 'hour').toString()}
         onClose={this.onReset}
       />,
     ];

@@ -1,12 +1,15 @@
 // @flow
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import blakejs from 'blakejs';
+
+dayjs.extend(utc);
 
 // time utils
 export const unixTimestampToDate = (timestamp: number) =>
   new Date(timestamp * 1000);
 export const utcStringToDate = (createDate: string) =>
-  moment.utc(createDate).toDate();
+  dayjs.utc(createDate).toDate();
 
 // passphrase utils
 const bytesToB16 = (bytes) => Buffer.from(bytes).toString('hex');

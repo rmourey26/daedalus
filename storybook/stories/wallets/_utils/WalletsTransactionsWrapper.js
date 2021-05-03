@@ -2,7 +2,7 @@
 import { Component } from 'react';
 import { computed } from 'mobx';
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 // Assets and helpers
 import {
@@ -78,7 +78,7 @@ export default class WalletsTransactionsWrapper extends Component<
         ),
         generateTransaction(
           TransactionTypes.EXPEND,
-          moment().subtract(1, 'days').toDate(),
+          dayjs().subtract(1, 'days').toDate(),
           new BigNumber(1)
         ),
         generateTransaction(
@@ -88,12 +88,12 @@ export default class WalletsTransactionsWrapper extends Component<
         ),
         generateTransaction(
           TransactionTypes.EXPEND,
-          moment().subtract(2, 'days').toDate(),
+          dayjs().subtract(2, 'days').toDate(),
           new BigNumber(1)
         ),
         generateTransaction(
           TransactionTypes.INCOME,
-          moment().subtract(1, 'days').toDate(),
+          dayjs().subtract(1, 'days').toDate(),
           new BigNumber(1)
         ),
       ],
@@ -209,7 +209,7 @@ export default class WalletsTransactionsWrapper extends Component<
         ),
         generateTransaction(
           TransactionTypes.EXPEND,
-          moment().subtract(1, 'days').toDate(),
+          dayjs().subtract(1, 'days').toDate(),
           new BigNumber(200),
           new BigNumber(1),
           TransactionStates.OK,
@@ -233,7 +233,7 @@ export default class WalletsTransactionsWrapper extends Component<
         ),
         generateTransaction(
           TransactionTypes.EXPEND,
-          moment().subtract(2, 'days').toDate(),
+          dayjs().subtract(2, 'days').toDate(),
           new BigNumber(200),
           new BigNumber(1),
           TransactionStates.OK,
@@ -245,7 +245,7 @@ export default class WalletsTransactionsWrapper extends Component<
         ),
         generateTransaction(
           TransactionTypes.INCOME,
-          moment().subtract(1, 'days').toDate(),
+          dayjs().subtract(1, 'days').toDate(),
           new BigNumber(200),
           new BigNumber(1),
           TransactionStates.OK,

@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import localeData from 'dayjs/plugin/localeData';
 import { observer } from 'mobx-react';
 import { get, camelCase } from 'lodash';
 import ReactMarkdown from 'react-markdown';
@@ -9,6 +10,8 @@ import { ButtonSkin } from 'react-polymorph/lib/skins/simple/ButtonSkin';
 import News from '../../domains/News';
 import ButtonLink from '../widgets/ButtonLink';
 import styles from './IncidentOverlay.scss';
+
+dayjs.extend(localeData);
 
 type Props = {
   incident: News.News,
@@ -22,7 +25,7 @@ export default class IncidentOverlay extends Component<Props> {
   localizedDateFormat: 'MM/DD/YYYY';
 
   componentDidMount() {
-    this.localizedDateFormat = moment.localeData().longDateFormat('L');
+    this.localizedDateFormat = dayjs.localeData().longDateFormat('L');
   }
 
   contentClickHandler(event: SyntheticMouseEvent<HTMLElement>) {
@@ -68,7 +71,7 @@ export default class IncidentOverlay extends Component<Props> {
       <div className={componentClasses}>
         <h1 className={styles.title}>{title}</h1>
         <span className={styles.date}>
-          {moment(date).format(currentDateFormat)}
+          {dayjs(date).format(currentDateFormat)}
         </span>
         <div
           className={styles.content}

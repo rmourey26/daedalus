@@ -3,7 +3,9 @@
 import React, { Component, createRef } from 'react';
 import type { Element, ElementRef } from 'react';
 import { observer } from 'mobx-react';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { isEqual, pick } from 'lodash';
 import { defineMessages, intlShape } from 'react-intl';
 import { PopOver } from 'react-polymorph/lib/components/PopOver';
@@ -27,6 +29,9 @@ import TinyDatePicker from '../../widgets/forms/TinyDatePicker';
 import TinyButton from '../../widgets/forms/TinyButton';
 import globalMessages from '../../../i18n/global-messages';
 import styles from './FilterDialog.scss';
+
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
 
 const messages = defineMessages({
   allTransactions: {
@@ -269,14 +274,14 @@ export default class FilterDialog extends Component<FilterDialogProps> {
   };
 
   isValidFromDate = (date: Object) => {
-    return date.isSameOrBefore(moment().endOf('day'));
+    return date.isSameOrBefore(dayjs().endOf('day'));
   };
 
   isValidToDate = (date: Object) => {
     const { fromDate } = this.form.values();
     return (
-      date.isSameOrBefore(moment().endOf('day')) &&
-      date.isSameOrAfter(moment(fromDate).startOf('day'))
+      date.isSameOrBefore(dayjs().endOf('day')) &&
+      date.isSameOrAfter(dayjs(fromDate).startOf('day'))
     );
   };
 

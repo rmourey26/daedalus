@@ -2,7 +2,7 @@
 import fs from 'fs';
 import { When, Then } from 'cucumber';
 import path from 'path';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import type { Daedalus } from '../../../types';
 
 declare var daedalus: Daedalus;
@@ -11,7 +11,7 @@ const exportedCSVPath = path.resolve(
   __dirname,
   '../documents/rewards_exported.csv'
 );
-const exportedCSVContent = [['Wallet', 'Reward', 'Date'], ['Test Wallet', '1,000,000.000000 ADA', moment().format('YYYY-MM-DDTHHmmss.0SSS')]];
+const exportedCSVContent = [['Wallet', 'Reward', 'Date'], ['Test Wallet', '1,000,000.000000 ADA', dayjs().format('YYYY-MM-DDTHHmmss.0SSS')]];
 const REWARDS_TAB_BUTTON = '.rewards.NavButton_component.NavButton_normal';
 const REWARDS_PAGE = '.StakingRewardsForIncentivizedTestnet_component';
 const NO_REWARDS_SELECTOR = '.StakingRewardsForIncentivizedTestnet_component .StakingRewardsForIncentivizedTestnet_noRewardsLabel';

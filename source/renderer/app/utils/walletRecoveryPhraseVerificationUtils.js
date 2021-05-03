@@ -1,6 +1,6 @@
 // @flow
 
-import moment from 'moment';
+import dayjs from 'dayjs';
 import {
   RECOVERY_PHRASE_VERIFICATION_STATUSES as statuses,
   RECOVERY_PHRASE_VERIFICATION_TYPES as types,
@@ -16,7 +16,7 @@ export const getStatusFromWalletData = ({
 }) => {
   // Data config
   const dateToCheck = verification || creation || new Date();
-  const daysSinceDate = moment().diff(moment(dateToCheck), 'days');
+  const daysSinceDate = dayjs().diff(dayjs(dateToCheck), 'days');
 
   // Status Type
   const type = verification ? types.ALREADY_VERIFIED : types.NEVER_VERIFIED;

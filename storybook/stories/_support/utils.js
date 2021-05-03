@@ -2,7 +2,7 @@
 import hash from 'hash.js';
 import faker from 'faker';
 import JSONBigInt from 'json-bigint';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { random, get } from 'lodash';
 import BigNumber from 'bignumber.js';
 import Wallet, {
@@ -202,7 +202,7 @@ export const generateTransaction = (
 export const generateRandomTransaction = (index: number) =>
   generateTransaction(
     TransactionTypes.INCOME,
-    moment().subtract(index, 'days').toDate(),
+    dayjs().subtract(index, 'days').toDate(),
     new BigNumber(faker.random.number(5))
   );
 

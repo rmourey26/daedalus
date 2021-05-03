@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ja';
 import { defineMessages, intlShape } from 'react-intl';
 import SVGInline from 'react-svg-inline';
 import classnames from 'classnames';
@@ -11,6 +13,8 @@ import styles from './WalletSummaryCurrency.scss';
 import Wallet from '../../../domains/Wallet';
 import { formattedWalletCurrencyAmount } from '../../../utils/formatters';
 import type { Currency } from '../../../types/currencyTypes';
+
+dayjs.extend(relativeTime);
 
 const messages = defineMessages({
   currencyTitle: {
@@ -81,7 +85,7 @@ export default class WalletSummaryCurrency extends Component<Props> {
     const currencyWalletAmountSymbol = currencySelected
       ? currencySelected.code.toUpperCase()
       : '';
-    const fetchedTimeAgo = moment(currencyLastFetched)
+    const fetchedTimeAgo = dayjs(currencyLastFetched)
       .locale(intl.locale)
       .fromNow();
 

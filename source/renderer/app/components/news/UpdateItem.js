@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import News /* , { NewsTypes } */ from '../../domains/News';
 import styles from './UpdateItem.scss';
 
@@ -64,7 +64,7 @@ export default class UpdateItem extends Component<Props> {
       >
         {title}
         <div className={styles.date}>
-          {moment(updateItem.date).format(currentDateFormat)}
+          {dayjs(updateItem.date).format(currentDateFormat)}
         </div>
         {!isUpdatePostponed && (
           <div className={styles.downloadProgress}>

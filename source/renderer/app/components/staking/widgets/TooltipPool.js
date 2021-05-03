@@ -12,7 +12,9 @@ import { Button } from 'react-polymorph/lib/components/Button';
 import { PopOver } from 'react-polymorph/lib/components/PopOver';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import classnames from 'classnames';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ja';
 import SVGInline from 'react-svg-inline';
 import { ButtonSkin } from 'react-polymorph/lib/skins/simple/ButtonSkin';
 import { Link } from 'react-polymorph/lib/components/Link';
@@ -36,6 +38,8 @@ import {
   IS_RANKING_DATA_AVAILABLE,
   IS_SATURATION_DATA_AVAILABLE,
 } from '../../../config/stakingConfig';
+
+dayjs.extend(relativeTime);
 
 const messages = defineMessages({
   ranking: {
@@ -450,7 +454,7 @@ export default class TooltipPool extends Component<Props, State> {
     const { id, name, description, ticker, homepage, retiring } = stakePool;
 
     const retirementFromNow = retiring
-      ? moment(retiring).locale(intl.locale).fromNow(true)
+      ? dayjs(retiring).locale(intl.locale).fromNow(true)
       : '';
 
     const idCopyIcon = idCopyFeedback ? copyCheckmarkIcon : copyIcon;

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import path from 'path';
 import { observer, inject } from 'mobx-react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { showSaveDialogChannel } from '../../../../ipc/show-file-dialog-channels';
 import InstructionsDialog from '../../../../components/wallet/paper-wallet-certificate/InstructionsDialog';
 import type { InjectedDialogContainerProps } from '../../../../types/injectedPropsType';
@@ -25,7 +25,7 @@ export default class InstructionsDialogContainer extends Component<Props> {
       currentDateFormat,
       currentTimeFormatShort,
     } = this.props.stores.profile;
-    const date = moment();
+    const date = dayjs();
     const formattedDate = date.format(currentDateFormat);
     const formattedTime = date.format(currentTimeFormatShort);
     const timestamp = `${formattedDate} - ${formattedTime}`;

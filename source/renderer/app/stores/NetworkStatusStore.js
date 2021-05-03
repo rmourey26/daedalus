@@ -1,6 +1,6 @@
 // @flow
 import { observable, action, computed, runInAction } from 'mobx';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { isEqual, includes, get } from 'lodash';
 import Store from './lib/Store';
 import Request from './lib/LocalizedRequest';
@@ -477,7 +477,7 @@ export default class NetworkStatusStore extends Store {
         futureEpoch = {
           epochNumber: nextEpoch.epochNumber ? nextEpoch.epochNumber + 1 : null,
           epochStart: nextEpoch.epochStart
-            ? moment(nextEpoch.epochStart)
+            ? dayjs(nextEpoch.epochStart)
                 .add(startDelta, 'seconds')
                 .toISOString()
             : '',
@@ -530,8 +530,8 @@ export default class NetworkStatusStore extends Store {
         ) {
           this.lastSyncProgressChangeTimestamp = Date.now(); // Record last sync progress change timestamp
         }
-        const lastSyncProgressChangeStall = moment(Date.now()).diff(
-          moment(this.lastSyncProgressChangeTimestamp)
+        const lastSyncProgressChangeStall = dayjs(Date.now()).diff(
+          dayjs(this.lastSyncProgressChangeTimestamp)
         );
         this.isSyncProgressStalling =
           lastSyncProgressChangeStall > MAX_ALLOWED_STALL_DURATION;

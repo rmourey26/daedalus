@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { defineMessages, intlShape } from 'react-intl';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import StakingChartTooltipItem from './StakingChartTooltipItem';
 import styles from './StakingChartTooltip.scss';
 
@@ -75,7 +75,7 @@ export default class StakingChartTooltip extends Component<Props> {
         <div className={styles.slot}>
           {`#${slot}`} {intl.formatMessage(messages.slot)}
         </div>
-        <div className={styles.date}>{moment(time).format(dateFormat)}</div>
+        <div className={styles.date}>{dayjs(time).format(dateFormat)}</div>
         <div className={styles.hash}>{hash}</div>
         <StakingChartTooltipItem
           key="transactions"

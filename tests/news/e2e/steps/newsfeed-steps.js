@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { get } from 'lodash';
 import { Given, When, Then } from 'cucumber';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import newsDummyJson from '../documents/dummy-news.json';
 import {
@@ -132,7 +132,7 @@ Given('the latest alert will cover the screen', async function() {
   const latestAlert = this.news.alerts.unread[0];
   await expectTextInSelector(this.client, {
     selector: '.AlertsOverlay_date',
-    text: moment(latestAlert.date).format('YYYY-MM-DD'),
+    text: dayjs(latestAlert.date).format('YYYY-MM-DD'),
   });
 });
 

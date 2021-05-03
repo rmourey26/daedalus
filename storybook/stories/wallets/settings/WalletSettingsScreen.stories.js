@@ -3,7 +3,7 @@ import React from 'react';
 import { text, boolean, number, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import BigNumber from 'bignumber.js';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import {
   isIncentivizedTestnetTheme,
   generateWallet,
@@ -116,11 +116,11 @@ const selectedWallet = generateWallet(
 const getWalletDates = (type: string, status: string) => {
   let date = new Date();
   if (status === 'warning')
-    date = moment()
+    date = dayjs()
       .subtract(RECOVERY_PHRASE_VERIFICATION_TIMES.warning + 10, 'days')
       .toDate();
   else if (status === 'notification')
-    date = moment()
+    date = dayjs()
       .subtract(RECOVERY_PHRASE_VERIFICATION_TIMES.notification + 10, 'days')
       .toDate();
 
@@ -211,7 +211,7 @@ export default (props: { currentTheme: string, locale: Locale }) => {
       isRestoring={false}
       isSyncing={false}
       walletPublicKey={walletPublicKeyId}
-      spendingPasswordUpdateDate={moment().subtract(1, 'month').toDate()}
+      spendingPasswordUpdateDate={dayjs().subtract(1, 'month').toDate()}
       isSpendingPasswordSet={boolean(
         'isSpendingPasswordSet',
         false,
