@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 4.0.5-CT2
+## 4.0.6-CT3
 
 ### Features
 
