@@ -214,7 +214,7 @@
     "node-downloader-helper": "1.0.14",
     "omit-deep-lodash": "1.1.5",
     "pbkdf2": "3.0.17",
-    "pdfkit": "0.8.3",
+    "pdfkit": "0.16.0",
     "prop-types": "15.7.2",
     "qr-image": "3.2.0",
     "qrcode.react": "1.0.0",
